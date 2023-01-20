@@ -1,21 +1,26 @@
-import * as React from "react";
+import React, { ReactElement } from "react";
+import { render, RenderOptions } from "@testing-library/react";
 import Head from "next/head";
 import { AppProps } from "next/app";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import theme from "../config/theme";
-import createEmotionCache from "../config/createEmotionCache";
-import ContextWrapper from "../components/ContextWrapper";
+import theme from "./config/theme";
+import createEmotionCache from "./config/createEmotionCache";
+import ContextWrapper from "./components/ContextWrapper";
 
-// Client-side cache, shared for the whole session of the user in the browser - required by MUI.
 const clientSideEmotionCache = createEmotionCache();
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
-export default function MyApp(props: MyAppProps) {
+const customRender = (
+  ui: ReactElement,
+  options?: Omit<RenderOptions, "wrapper">
+) => render(ui, { wrapper: AllTheProviders, ...options } as any);
+
+const AllTheProviders = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <CacheProvider value={emotionCache}>
@@ -31,4 +36,7 @@ export default function MyApp(props: MyAppProps) {
       </ThemeProvider>
     </CacheProvider>
   );
-}
+};
+
+export * from "@testing-library/react";
+export { customRender as render };
