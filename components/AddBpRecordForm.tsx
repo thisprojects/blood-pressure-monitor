@@ -13,34 +13,28 @@ interface IAddBpRecord {
 const AddBpRecordForm: React.FC<IAddBpRecord> = ({ editMode, bpRecord }) => {
   const { addBloodPressureRecord, updateBloodPressureRecords } =
     useNetworkRequest();
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<Date>(bpRecord?.date || new Date());
 
   const addOrUpdateBloodPressure = editMode
     ? updateBloodPressureRecords
     : addBloodPressureRecord;
+
   return (
     <FormWithSubmit
       networkRequestFunction={addOrUpdateBloodPressure}
       msgSubject="Add BP Record"
       customFormFields={
-        editMode ? [{ name: "id", value: bpRecord?._id }] : null
+        editMode
+          ? [
+              { name: "id", value: bpRecord?._id },
+              { name: "date", value: new Date(date) },
+            ]
+          : [{ name: "date", value: new Date(date) }]
       }
       validation={["systolic", "diastolic", "pulse"]}
     >
       <h1>{editMode ? "Update" : "Add"} Blood Pressure Record</h1>
-      <DatePicker setDate={setDate} date={date || bpRecord?.date} />
-      <TextInput
-        name="date"
-        id="outlined-error-helper-text"
-        value={
-          editMode
-            ? date
-              ? new Date(date as unknown as number)
-              : new Date(bpRecord?.date)
-            : new Date(date as unknown as number)
-        }
-        label="Date"
-      />
+      <DatePicker setDate={setDate} date={date} />
       <TextInput
         name="systolic"
         id="outlined-error-helper-text"

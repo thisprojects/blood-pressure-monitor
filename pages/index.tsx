@@ -4,19 +4,20 @@ import Grid from "@mui/material/Grid";
 import Navbar from "../components/Navigation";
 import AuthorisedContent from "../components/AuthorisedContent";
 import DisplayBloodPressureRecords from "../components/DisplayBloodPressureRecords";
-import { Header } from "../styles/StyledComponents";
 import ImportantDevicesIcon from "@mui/icons-material/ImportantDevices";
-import { FlexColumnDiv } from "../styles/StyledComponents";
-import getConfig from "next/config";
-const { publicRuntimeConfig: config } = getConfig();
+import { FlexColumnDiv, Header, Paragraph } from "../styles/StyledComponents";
 
 const NotAuthed = () => {
-  console.log("ENV", config);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <FlexColumnDiv>
+            <Header>Blood Pressure Monitor</Header>
+            <Paragraph>
+              An app for recording diastolic and systolic blood pressure
+              readings.
+            </Paragraph>
             <ImportantDevicesIcon
               sx={{ fontSize: "500px" }}
               color="secondary"

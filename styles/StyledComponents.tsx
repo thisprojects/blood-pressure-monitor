@@ -47,6 +47,11 @@ export const Header = styled("div")(({ theme }) => ({
   fontSize: "34px",
 }));
 
+export const Paragraph = styled("p")(({ theme }) => ({
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
 export const GridRow = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
   margin: theme.spacing(1),
@@ -64,7 +69,7 @@ export const FormWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "center",
 }));
 
-export const Error = styled("p")(({ theme }) => ({
+export const Error = styled("li")(({ theme }) => ({
   color: "red",
 }));
 

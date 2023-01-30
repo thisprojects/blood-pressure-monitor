@@ -5,7 +5,7 @@ import { FormEventHandler, ReactNode, useState } from "react";
 
 interface ICustomFormFields {
   name: string;
-  value: string;
+  value: string | Date;
 }
 
 interface IForm {
@@ -58,7 +58,7 @@ const FormWithSubmit: React.FC<IForm> = ({
 
     if (customFormFields) {
       customFormFields.forEach((field: ICustomFormFields) => {
-        formData.append(field.name, field.value);
+        formData.append(field.name, field.value as string);
       });
     }
 
@@ -86,9 +86,11 @@ const FormWithSubmit: React.FC<IForm> = ({
         {children}
         <SubmitButton data-testid="submit" type="submit" />
         {loading && <p>Loading</p>}
-        {validationError.map((item) => (
-          <Error key={item}>{item}</Error>
-        ))}
+        <ul>
+          {validationError.map((item) => (
+            <Error key={item}>{item}</Error>
+          ))}
+        </ul>
       </FormWrapper>
       <StatusMSG success={success} error={fail} subject={msgSubject} />
     </>
