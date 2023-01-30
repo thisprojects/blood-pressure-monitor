@@ -1,5 +1,7 @@
 import { UserContext } from "../components/ContextWrapper";
 import { IPayload } from "../models/payload";
+import getConfig from "next/config";
+const { publicRuntimeConfig: config } = getConfig();
 
 function useNetworkRequest() {
   const { setUserCredentials, userCredentials } = UserContext();
@@ -7,9 +9,7 @@ function useNetworkRequest() {
   const requests = {
     async getItems(endpoint: string, body?: object) {
       return await fetch(
-        `http://${
-          process.env.REACT_APP_HOSTNAME || "localhost"
-        }:8080${endpoint}`,
+        `http://${config?.hostname || "localhost"}:8080${endpoint}`,
         {
           body: JSON.stringify({ id: userId, ...body }),
           headers: {
@@ -57,9 +57,7 @@ function useNetworkRequest() {
 
     async postItem(endpoint: string, payload: IPayload) {
       return await fetch(
-        `http://${
-          process.env.REACT_APP_HOSTNAME || "localhost"
-        }:8080${endpoint}`,
+        `http://${config?.hostname || "localhost"}:8080${endpoint}`,
         {
           method: "POST",
           body: payload.formPayload || JSON.stringify(payload.customPayload),
@@ -116,9 +114,7 @@ function useNetworkRequest() {
 
     async putItem(endpoint: string, payload: IPayload) {
       return await fetch(
-        `http://${
-          process.env.REACT_APP_HOSTNAME || "localhost"
-        }:8080${endpoint}`,
+        `http://${config?.hostname || "localhost"}:8080${endpoint}`,
         {
           method: "PUT",
           body: payload.formPayload || JSON.stringify(payload.customPayload),
@@ -138,9 +134,7 @@ function useNetworkRequest() {
 
     async deleteItem(endpoint: string, payload: { id: string }) {
       return await fetch(
-        `http://${
-          process.env.REACT_APP_HOSTNAME || "localhost"
-        }:8080${endpoint}`,
+        `http://${config?.hostname || "localhost"}:8080${endpoint}`,
         {
           method: "DELETE",
           body: JSON.stringify(payload),

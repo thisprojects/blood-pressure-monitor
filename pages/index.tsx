@@ -7,8 +7,11 @@ import DisplayBloodPressureRecords from "../components/DisplayBloodPressureRecor
 import { Header } from "../styles/StyledComponents";
 import ImportantDevicesIcon from "@mui/icons-material/ImportantDevices";
 import { FlexColumnDiv } from "../styles/StyledComponents";
+import getConfig from "next/config";
+const { publicRuntimeConfig: config } = getConfig();
 
 const NotAuthed = () => {
+  console.log("ENV", config);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>

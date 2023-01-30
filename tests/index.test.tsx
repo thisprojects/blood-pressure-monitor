@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import App from "./index";
+import App from "../pages/index";
 
 // const server = setupServer(
 //   rest.get(
